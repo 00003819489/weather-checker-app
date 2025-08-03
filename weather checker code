@@ -1,0 +1,18 @@
+import requests
+
+api_key = "980820f20c55547f0ffe890fa79bfd1e"  
+city = input("Enter city name: ")
+
+url = f"http://api.openweathermap.org/data/2.5/weather?q={city}&appid={api_key}&units=metric"
+
+response = requests.get(url)
+data = response.json()
+
+print(data)  # Add this to debug
+
+if response.status_code == 200:
+    temperature = data["main"]["temp"]
+    weather_desc = data["weather"][0]["description"]
+    print(f"{city}: {temperature}°C, {weather_desc.capitalize()}")
+else:
+    print("City not found.")
